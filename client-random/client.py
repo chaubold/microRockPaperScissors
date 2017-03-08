@@ -1,3 +1,7 @@
+'''
+A random client that is as simple as it gets.
+'''
+
 import json
 import random
 import argparse
@@ -22,6 +26,7 @@ def request_hand():
 # --------------------------------------------------------------
 @app.route('/doc')
 def documentation():
+    ''' serve an API documentation '''
     return doc.html(title='Random Player API', author='Carsten Haubold')
 
 # ----------------------------------------------------------------------------------------

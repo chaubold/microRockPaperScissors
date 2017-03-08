@@ -1,5 +1,4 @@
 import requests
-import json
 
 class Game(object):
     hands = ['rock', 'paper', 'scissors']

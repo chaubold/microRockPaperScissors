@@ -1,5 +1,11 @@
+'''
+Game Server that allows to add and remove players and to play a series of "Rock, Paper, Scissors" matches,
+and also publishes the games in a redis queue
+'''
+
 import json
-from pprint import pprint
+import argparse
+
 from collections import Counter
 from flask import Flask, request
 from flask_autodoc import Autodoc
@@ -64,9 +70,15 @@ def get_result(numMatches):
 # --------------------------------------------------------------
 @app.route('/doc')
 def documentation():
+    ''' serve an API documentation '''
     return doc.html(title='Game Server API', author='Carsten Haubold')
 
 # ----------------------------------------------------------------------------------------
 # run server
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=6788, debug=False)
+    parser = argparse.ArgumentParser(description='Run the rock-paper-scissors game server.',
+                                    formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument('-p', '--port', type=int, default=6788, help='port on which to run service')
+    options = parser.parse_args()
+
+    app.run(host='0.0.0.0', port=options.port, debug=False)
