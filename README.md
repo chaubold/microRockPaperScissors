@@ -10,6 +10,16 @@ This is Python 3 only!
 * Autodoc (*will probably replaced in the future*): `pip install Flask-Autodoc`
 * qt5 and pyqt for the viewer: `conda install pyqt==5.6.0`
 
+You also need to run a redis server on the default port which is used to communicate the results.
+Install docker and run the latest redis in a linux container as follows: 
+    
+    docker run -d -p 6379:6379 --name redis bitnami/redis:latest
+
+Where the parameters mean:
+* `-d` = run as daemon
+* `-p` port:port = forward this specific port from the container to localhost (6379 is redis default)
+* `--name` = provide a name for the container that can be used with start/stop,...
+
 ## Running server and playing matches
 
 Start server and two players:
