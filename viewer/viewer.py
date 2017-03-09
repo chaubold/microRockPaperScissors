@@ -21,7 +21,7 @@ class RedisListenerThread(QThread):
     def run(self):
         r = redis.StrictRedis()
         p = r.pubsub()
-        p.psubscribe('*')
+        p.psubscribe('game-channel')
 
         while True:
             m = p.get_message() # message is a dict!
@@ -33,7 +33,7 @@ class RedisListenerThread(QThread):
                 
                 self.messageSignal.emit("Redis listener got:" + json.dumps(m))
 
-            time.sleep(0.01)
+            time.sleep(0.001)
 
 class ServiceRunnerThread(QThread):
     messageSignal = pyqtSignal(str)

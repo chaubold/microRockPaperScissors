@@ -30,8 +30,9 @@ class Game(object):
         handPerPlayer = {}
 
         # get each player's hand
-        for player, ip in self.players.items():
-            r = requests.get("http://{ip}/hand".format(ip=ip))
+        for idx, playerIp in enumerate(self.players.items()):
+            player, ip = playerIp
+            r = requests.get("http://{ip}/hand/{opponent}".format(ip=ip, opponent=list(self.players.keys())[1 - idx]))
             if r.status_code != 200:
                 raise RuntimeError("Could not connect to ip: {}".format(ip))
 
@@ -77,7 +78,7 @@ class Game(object):
         '''
         Ask a player for a hand to see whether it is reachable
         '''
-        r = requests.get("http://{ip}/hand".format(ip=ip))
+        r = requests.get("http://{ip}/hand/test".format(ip=ip))
         if r.status_code != 200:
             raise RuntimeError("Could not connect to ip: {}".format(ip))
 

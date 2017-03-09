@@ -22,7 +22,7 @@ Where the parameters mean:
 
 ## Running server and playing matches
 
-Start server and two players:
+Start server and two players (`client-random`, `client-biased` and `client-learning` are available):
 
 ```sh
 # best in seperate terminals, or put an "&" at the end of every line
