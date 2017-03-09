@@ -1,4 +1,6 @@
 import requests
+import redis
+import json
 
 class Game(object):
     hands = ['rock', 'paper', 'scissors']
@@ -14,6 +16,9 @@ class Game(object):
 
         # store the name of the winning player per match
         self.winnerPerMatch = []
+
+        # connect to Redis running on default port
+        self.resultPublisher = redis.StrictRedis()
 
     def playMatch(self):
         '''
@@ -36,12 +41,15 @@ class Game(object):
             self.playerHands[player].append(hand)
             handPerPlayer[player] = hand
 
-        return self._determineWinner(handPerPlayer)
+        result = self._determineWinner(handPerPlayer)
+
+        handPerPlayer['result'] = result
+        self.resultPublisher.publish('game-channel', json.dumps(handPerPlayer))
+
+        return result
 
     def _determineWinner(self, handPerPlayer):
-        print(handPerPlayer)
         hs = list(handPerPlayer.values())
-        print(hs)
         winnerIdx = -1
         
         if hs[0] == 'rock':
@@ -92,3 +100,10 @@ class Game(object):
         print("Removing player " + playerName)
         del self.players[playerName]
         del self.playerHands[playerName]
+
+    def removeAllPlayers(self):
+        ''' reset everything to an empty game '''
+        self.players = {}
+        self.playerHands = {}
+        self.winnerPerMatch = []
+

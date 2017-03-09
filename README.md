@@ -8,7 +8,7 @@ This is Python 3 only!
 
 * Flask: `pip install flask`
 * Autodoc (*will probably replaced in the future*): `pip install Flask-Autodoc`
-* qt5 and pyqt: `conda install pyqt==5.6.0`
+* qt5 and pyqt for the viewer: `conda install pyqt==5.6.0`
 
 ## Running server and playing matches
 
@@ -21,6 +21,8 @@ python client-random/client.py -p 6789
 python client-random/client.py -p 6790
 ```
 
+To see the API any of the clients offer, navigate your webbrowser to `localhost:port/doc`.
+
 Tell the server which players are playing:
 
 ```sh
@@ -28,9 +30,14 @@ curl -i -d '{"player":"joe", "ip":"0.0.0.0:6789"}' localhost:9876/player/add
 curl -i -d '{"player":"paul", "ip":"0.0.0.0:6790"}' localhost:9876/player/add
 ```
 
-Play 100 matches
+Play 100 matches:
 
 ```sh
 curl -i localhost:9876/result/100
 ```
 
+Or fire up a viewer that will talk to the gameserver and connect the players:
+
+```sh
+python viewer.py --game-server-ip 0.0.0.0:9876 --player1-name joe --player1-ip 0.0.0.0:6789 --player2-name paul --player2-ip 0.0.0.0:6790
+```

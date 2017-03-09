@@ -57,11 +57,22 @@ def remove_player():
     return "Sucessfully removed player " + message['player'] + '\n'
 
 # --------------------------------------------------------------
+@app.route('/player/removeall')
+@doc.doc()
+def remove_all_players():
+    '''
+    Remove all players
+    '''
+    game.removeAllPlayers()
+    return "Removed all players\n"
+
+# --------------------------------------------------------------
 @app.route('/result/<int:numMatches>')
 @doc.doc()
 def get_result(numMatches):
     '''
-    Returns the player names or "draw", with the number of times they won.
+    Play the specified number of matches and 
+    return the player names or "draw", with the number of times they won.
     '''
     winnerPerMatch = [game.playMatch() for _ in range(numMatches)]
     stats = Counter(winnerPerMatch)
