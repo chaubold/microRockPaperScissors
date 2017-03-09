@@ -8,6 +8,8 @@ This is Python 3 only!
 
 * Flask: `pip install flask`
 * Autodoc (*will probably replaced in the future*): `pip install Flask-Autodoc`
+* Requests: `conda install requests`
+* Redis-py: `conda install redis-py`
 * qt5 and pyqt for the viewer: `conda install pyqt==5.6.0`
 
 You also need to run a redis server on the default port which is used to communicate the results.
